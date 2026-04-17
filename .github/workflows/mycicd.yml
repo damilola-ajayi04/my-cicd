@@ -22,3 +22,5 @@ jobs:
            - name: step 4 - Simulate build
              run:  echo "Building the application"
 
+           - name: step 5 - Show file content
+             run: cat index.html

@@ -14,7 +14,7 @@ jobs:
              run:  echo "Starting build process"  
 
            - name: step 2 - Checkout code
-             uses: actions/chechoutav3
+             uses: actions/checkout@v3
 
            - name: step 3 - List files
              run:  ls -la 
@@ -22,4 +22,3 @@ jobs:
            - name: step 4 - Simulate build
              run:  echo "Building the application"
 
-             

@@ -23,4 +23,13 @@ jobs:
              run:  echo "Building the application"
 
            - name: step 5 - Show file content
-             run: cat index.html
+             run:  cat index.html
+
+           - name: step 6 - Check if index.html exists
+             run:  |
+               if [ -f index.html ]; then
+                 echo "File exists"
+               else
+                 echo "File not exists"  
+                 exit 1
+               fi 

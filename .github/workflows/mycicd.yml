@@ -1,35 +1,33 @@
-name: My CI Build
+name: My CI Build + Test
 
 on: 
-    push: 
-        branches: 
-            main
+  push: 
+    branches: 
+      - main
 
 jobs:
-    build-job:
-        runs-on: ubuntu-latest
+  build-job:
+    runs-on: ubuntu-latest
 
-        steps:
-           - name: step 1 - Start
-             run:  echo "Starting build process"  
+    steps:
+          - name: Checkout code
+            uses: actions/checkout@v3
 
-           - name: step 2 - Checkout code
-             uses: actions/checkout@v3
+          - name: Build step
+            run:  echo "Building application..."
 
-           - name: step 3 - List files
-             run:  ls -la 
+  test-job:
+    runs-on: ubuntu-latest
 
-           - name: step 4 - Simulate build
-             run:  echo "Building the application"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-           - name: step 5 - Show file content
-             run:  cat index.html
-
-           - name: step 6 - Check if index.html exists
-             run:  |
-               if [ -f index.html ]; then
-                 echo "File exists"
-               else
-                 echo "File not exists"  
-                 exit 1
-               fi 
+      - name: Test - Check if index.html exists
+        run: |
+          if [ -f index.html ]; then
+            echo "File exists"
+          else
+            echo "File not exists"  
+            exit 1
+          fi 

@@ -13,22 +13,35 @@ jobs:
           - name: Checkout code
             uses: actions/checkout@v3
 
-          - name: Build step
-            run:  echo "Building application..."
+          - name: Create Build file
+            run:  echo "Building application..." > build.txt
+
+          - name: Upload artifact
+            uses: actions/upload-artifact@v3
+
+            with:
+              name: build-file
+              path: build.txt
 
   test-job:
     runs-on: ubuntu-latest
     needs: build-job
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Download artifact
+        uses: actions/download-artifact@v3
 
-      - name: Test - Check if index.html exists
-        run: |
-          if [ -f index.html ]; then
-            echo "File exists"
-          else
-            echo "File not exists"  
-            exit 1
-          fi 
+        with: 
+          name: build-file
+
+      - name: Verifile artifact
+        run: cat build.txt
+          
+
+  deploy-job:
+    runs-on: ubuntu-latest
+    needs: test-job
+
+    steps:
+      - name: Simulate deployment
+        run: echo "Deploying application"
